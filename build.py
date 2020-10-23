@@ -515,6 +515,10 @@ COPY --from=tritonserver_onnx /workspace/onnxruntime/include/onnxruntime/core/pr
      /opt/tritonserver/include/onnxruntime/
 COPY --from=tritonserver_onnx /workspace/build/Release/libonnxruntime.so.${{ONNX_RUNTIME_VERSION}} \
      /opt/tritonserver/backends/onnxruntime/
+COPY --from=tritonserver_onnx /workspace/build/Release/libonnxruntime_providers_shared.so \
+     /opt/tritonserver/backends/onnxruntime/
+COPY --from=tritonserver_onnx /workspace/build/Release/libonnxruntime_providers_tensorrt.so \
+     /opt/tritonserver/backends/onnxruntime/
 COPY --from=tritonserver_onnx /workspace/onnxruntime/LICENSE \
      /opt/tritonserver/backends/onnxruntime/
 COPY --from=tritonserver_onnx /workspace/ort_onnx_version.txt \
@@ -537,6 +541,12 @@ COPY --from=tritonserver_onnx /opt/intel/openvino/deployment_tools/ngraph/lib/li
 COPY --from=tritonserver_onnx /opt/intel/openvino/deployment_tools/ngraph/lib/libonnx_importer.so \
      /opt/tritonserver/backends/onnxruntime/
 COPY --from=tritonserver_onnx /opt/intel/openvino/deployment_tools/inference_engine/external/tbb/lib/libtbb.so.2 \
+     /opt/tritonserver/backends/onnxruntime/
+COPY --from=tritonserver_onnx /opt/intel/openvino/deployment_tools/inference_engine/lib/intel64/plugins.xml \
+     /opt/tritonserver/backends/onnxruntime/
+COPY --from=tritonserver_onnx /opt/intel/openvino/deployment_tools/inference_engine/lib/intel64/libMKLDNNPlugin.so \
+     /opt/tritonserver/backends/onnxruntime/
+COPY --from=tritonserver_onnx /opt/intel/openvino/deployment_tools/inference_engine/lib/intel64/libinference_engine_lp_transformations.so \
      /opt/tritonserver/backends/onnxruntime/
 COPY --from=tritonserver_onnx /opt/intel/openvino/licensing \
      /opt/tritonserver/backends/onnxruntime/LICENSE.openvino
